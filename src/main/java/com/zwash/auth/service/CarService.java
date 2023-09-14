@@ -1,0 +1,30 @@
+package com.zwash.auth.service;
+
+import java.io.Serializable;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.zwash.auth.exceptions.CarDoesNotExistException;
+import com.zwash.auth.exceptions.UserIsNotFoundException;
+import com.zwash.auth.pojos.Car;
+import com.zwash.auth.pojos.User;
+import com.zwash.auth.pojos.UserCar;
+
+
+
+@Service
+public interface CarService  extends Serializable {
+
+	 Car getCar(long id);
+     Car getCar(String registerationPlate) throws CarDoesNotExistException;
+     boolean setCar(User user, Car car) throws Exception;
+	 List<Car> getCarsOfUser(User user) throws UserIsNotFoundException;
+	 Car register(UserCar car) throws Exception;
+	boolean updateCar(Car car) throws Exception;
+	boolean deleteCar(Car car) throws Exception;
+	List<Car> getAllCars();
+
+
+
+}
