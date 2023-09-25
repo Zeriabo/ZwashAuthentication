@@ -5,6 +5,7 @@ import java.util.ServiceLoader;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.kafka.core.KafkaTemplate;
 
 import com.zwash.auth.exceptions.IncorrectCredentialsException;
 import com.zwash.auth.exceptions.UserAlreadyExistsException;
@@ -33,6 +34,8 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	JwtUtils jwtUtils;
+
+
 
 	@Override
 	public LoggedUser signIn(String username, String password) throws Exception {
