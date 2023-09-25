@@ -21,7 +21,7 @@ public class UserCar {
 	 */
 	public void setRegistrationPlatePlate(String registrationPlate) throws Exception {
 		this.registrationPlate = registrationPlate;
-		
+
 
 	}
 
@@ -75,9 +75,9 @@ public class UserCar {
 	public void setCarId(int carId) {
 		this.carId = carId;
 	}
-	
+
 	private int carId;
-	
+
 	private String token;
 
 	private String registrationPlate;

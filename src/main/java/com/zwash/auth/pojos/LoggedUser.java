@@ -1,7 +1,6 @@
 package com.zwash.auth.pojos;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 
 public class LoggedUser {
@@ -113,7 +112,7 @@ public class LoggedUser {
 	private String token;
 	private LocalDateTime createDateTime;
 	private LocalDateTime updateDateTime;
-	
+
 
 	private boolean admin;
 }

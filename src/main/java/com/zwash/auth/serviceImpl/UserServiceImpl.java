@@ -5,12 +5,12 @@ import java.util.ServiceLoader;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.stereotype.Service;
 
 import com.zwash.auth.exceptions.IncorrectCredentialsException;
 import com.zwash.auth.exceptions.UserAlreadyExistsException;
 import com.zwash.auth.exceptions.UserIsNotFoundException;
 import com.zwash.auth.pojos.LoggedUser;
+import com.zwash.auth.pojos.User;
 import com.zwash.auth.repository.UserRepository;
 import com.zwash.auth.security.JwtUtils;
 import com.zwash.auth.service.CarService;
@@ -18,7 +18,6 @@ import com.zwash.auth.service.TokenService;
 import com.zwash.auth.service.UserService;
 
 import io.jsonwebtoken.Claims;
-import com.zwash.auth.pojos.User;
 public class UserServiceImpl implements UserService {
 
 	private static final long serialVersionUID = 1L;
@@ -28,7 +27,7 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	TokenService tokenService;
-	
+
 	@Autowired
 	CarService carService;
 
