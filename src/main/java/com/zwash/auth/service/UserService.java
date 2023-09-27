@@ -6,7 +6,8 @@ import org.springframework.stereotype.Service;
 
 import com.zwash.auth.exceptions.UserIsNotFoundException;
 import com.zwash.auth.pojos.LoggedUser;
-import com.zwash.auth.pojos.User;
+import com.zwash.common.pojos.User;
+
 
 
 

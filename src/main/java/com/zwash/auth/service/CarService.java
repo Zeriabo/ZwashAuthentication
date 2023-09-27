@@ -2,16 +2,12 @@ package com.zwash.auth.service;
 
 import java.io.Serializable;
 import java.util.List;
-
 import org.springframework.stereotype.Service;
-
 import com.zwash.auth.exceptions.CarDoesNotExistException;
 import com.zwash.auth.exceptions.UserIsNotFoundException;
-import com.zwash.auth.pojos.Car;
-import com.zwash.auth.pojos.User;
-import com.zwash.auth.pojos.UserCar;
-
-
+import com.zwash.common.pojos.Car;
+import com.zwash.common.pojos.User;
+import com.zwash.common.pojos.UserCar;
 
 @Service
 public interface CarService  extends Serializable {

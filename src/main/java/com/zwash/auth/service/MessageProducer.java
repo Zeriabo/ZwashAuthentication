@@ -3,9 +3,7 @@ package com.zwash.auth.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
-
-import com.zwash.auth.pojos.Car;
-import com.zwash.auth.pojos.User;
+import com.zwash.common.pojos.Car;
 
 @Service
 public class MessageProducer {

@@ -1,1 +1,3 @@
 rootProject.name = 'ZwashAuthentication'
+include('lib')
+include ':ZwashCommon'
