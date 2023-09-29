@@ -5,12 +5,15 @@ import java.util.ServiceLoader;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 import com.zwash.auth.exceptions.IncorrectCredentialsException;
 import com.zwash.auth.exceptions.UserAlreadyExistsException;
 import com.zwash.auth.exceptions.UserIsNotFoundException;
 import com.zwash.auth.pojos.LoggedUser;
+import com.zwash.auth.pojos.RegistrationEvent;
+import com.zwash.auth.pojos.SignInEvent;
 import com.zwash.auth.security.JwtUtils;
 import com.zwash.auth.service.CarService;
 import com.zwash.auth.service.TokenService;
@@ -36,7 +39,10 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	JwtUtils jwtUtils;
+	
 
+
+	
 	@Override
 	public LoggedUser signIn(String username, String password) throws Exception {
 
@@ -56,6 +62,7 @@ public class UserServiceImpl implements UserService {
 		Long id = loggedUser.getId();
 		String jwt = tokenService.createJWT(id.toString(), "Java", loggedUser.getUsername(), 1232134356);
 		loggedUser.setToken(jwt);
+	    
 
 		return loggedUser;
 	}
@@ -80,6 +87,7 @@ public class UserServiceImpl implements UserService {
 		catch (Exception e) {
 			throw e;
 		}
+		
 
 		return user;
 
@@ -138,6 +146,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	@KafkaListener(
+            topics = "get-user",
+            groupId = "get-user-1"
+    )
 	public User getUser(long id) throws UserIsNotFoundException {
 		Optional<User> user = userRepository.findById(id);
 		if (user.isPresent()) {
@@ -178,6 +190,30 @@ public class UserServiceImpl implements UserService {
 			throw new UserIsNotFoundException("User with id " + id + " not found");
 		}
 
+	}
+	 private long parseUserIdFromJson(String reqJson) {
+	        // Implement logic to parse userId from reqJson using a JSON parsing library
+	        // For example, using Jackson: objectMapper.readValue(reqJson, UserRequest.class).getUserId();
+	        // Replace UserRequest with your actual request object class
+	        // Return the parsed user ID
+	        return 123; // Example user ID
+	    }
+
+	@Override
+    @KafkaListener(
+        topics = "get-user",
+        groupId = "get-user-1"
+    )
+	public User getUser(String reqJson) throws UserIsNotFoundException {
+		
+		 long userId = parseUserIdFromJson(reqJson);
+		 User user = userRepository.findById(userId).get();
+	        
+	        // Handle the case when user is not found
+	        if (user == null) {
+	            throw new UserIsNotFoundException("User not found for id: " + userId);
+	        }
+	        else return user;
 	}
 
 
