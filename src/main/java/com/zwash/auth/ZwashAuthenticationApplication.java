@@ -4,7 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
-@ComponentScan("com.zwash.common.pojos")
+
+@ComponentScan(basePackages = {"com.zwash.common","com.zwash.auth"})
 @SpringBootApplication
 public class ZwashAuthenticationApplication {
 
