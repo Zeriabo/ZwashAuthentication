@@ -48,7 +48,6 @@ dependencies {
      // Firebase Admin SDK
     implementation 'com.google.firebase:firebase-admin:8.0.0'
 
-     implementation group: 'com.zwash.common', name: 'ZwashCommon', version: '1.0.0'
     // Google Auth Library
     implementation group: 'org.jasypt', name: 'jasypt', version: '1.9.3'
     implementation 'com.google.auth:google-auth-library-oauth2-http:1.0.0'
