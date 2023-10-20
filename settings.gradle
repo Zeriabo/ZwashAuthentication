@@ -1,3 +1,2 @@
-rootProject.name = 'ZwashAuthentication'
-include('lib')
-include ':ZwashCommon'
+include 'ZwashCommon'
+include 'ZwashAuthentication'
