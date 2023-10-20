@@ -8,7 +8,9 @@ group = 'com.zwash.auth'
 version = '0.0.1'
 
 java {
-	sourceCompatibility = '17'
+
+	   sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 repositories {
@@ -24,27 +26,25 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-webflux:2.4.5'
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.0'
     implementation 'org.hibernate.validator:hibernate-validator:8.0.1.Final'
-	
-   
+
+ implementation('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:3.0.0') {
+        exclude group: 'org.springframework.cloud', module: 'spring-cloud-context'
+    }
 
      
      
     //payment library stripe
     implementation 'com.stripe:stripe-java:22.26.0'
     //Jackson
-    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.2'
     
     //GraphQl
       implementation 'org.springframework.boot:spring-boot-starter-graphql'
       
-  
-     //kafka 
-     implementation 'org.springframework.kafka:spring-kafka:3.0.11'
-     
+ 
      implementation ('com.graphql-java-kickstart:graphql-java-tools:13.0.3') {
     exclude group: 'com.google.guava'
 }
-     
+     	  
      // Firebase Admin SDK
     implementation 'com.google.firebase:firebase-admin:8.0.0'
 
@@ -65,7 +65,7 @@ dependencies {
 	implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'org.postgresql:postgresql'
-	testImplementation 'org.springframework.kafka:spring-kafka-test:3.0.11'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 	
