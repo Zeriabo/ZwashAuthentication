@@ -2,7 +2,6 @@ package com.zwash.auth.service;
 
 import java.io.Serializable;
 
-import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 import com.zwash.auth.exceptions.UserIsNotFoundException;
@@ -28,11 +27,8 @@ public interface UserService extends Serializable {
 	   
 	User getUser(long id) throws UserIsNotFoundException;
 	
-	@KafkaListener(
-            topics = "get-user",
-            groupId = "get-user-1"
-    )
-    User getUser(String  reqJson) throws UserIsNotFoundException;
+	
+    User getUserKafka(String  reqJson) throws UserIsNotFoundException;
 		
 	   
 	User getUserFromToken(String token) throws UserIsNotFoundException;

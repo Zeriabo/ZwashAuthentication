@@ -5,7 +5,6 @@ import java.util.ServiceLoader;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 import com.zwash.auth.exceptions.IncorrectCredentialsException;
@@ -145,12 +144,9 @@ public class UserServiceImpl implements UserService {
 		throw new NoClassDefFoundError("Unable to load a driver " + TokenService.class.getName());
 	}
 
-	@Override
-	@KafkaListener(
-            topics = "get-user",
-            groupId = "get-user-1"
-    )
+
 	public User getUser(long id) throws UserIsNotFoundException {
+		
 		Optional<User> user = userRepository.findById(id);
 		if (user.isPresent()) {
 			return user.get();
@@ -196,18 +192,14 @@ public class UserServiceImpl implements UserService {
 	        // For example, using Jackson: objectMapper.readValue(reqJson, UserRequest.class).getUserId();
 	        // Replace UserRequest with your actual request object class
 	        // Return the parsed user ID
-	        return 123; // Example user ID
+	        return Long.parseLong(reqJson); // Example user ID
 	    }
 
-	@Override
-    @KafkaListener(
-        topics = "get-user",
-        groupId = "get-user-1"
-    )
-	public User getUser(String reqJson) throws UserIsNotFoundException {
+
+	public User getUserKafka(String reqJson) throws UserIsNotFoundException {
 		
 		 long userId = parseUserIdFromJson(reqJson);
-		 User user = userRepository.findById(userId).get();
+		 User user = userRepository.findById(userId).orElse(null);
 	        
 	        // Handle the case when user is not found
 	        if (user == null) {
