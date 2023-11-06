@@ -31,7 +31,7 @@ dependencies {
         exclude group: 'org.springframework.cloud', module: 'spring-cloud-context'
     }
 
-     
+     implementation project(':ZwashCommon')
      
     //payment library stripe
     implementation 'com.stripe:stripe-java:22.26.0'
