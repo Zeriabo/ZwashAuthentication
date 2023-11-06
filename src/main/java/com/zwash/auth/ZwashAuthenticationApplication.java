@@ -8,7 +8,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @ComponentScan(basePackages = {"com.zwash.common","com.zwash.auth"})
 @SpringBootApplication
-@EnableDiscoveryClient
+@EnableEurekaClient
 public class ZwashAuthenticationApplication {
 
 	public static void main(String[] args) {
@@ -16,3 +16,4 @@ public class ZwashAuthenticationApplication {
 	}
 
 }
+	
