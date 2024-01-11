@@ -9,14 +9,16 @@ import org.springframework.stereotype.Service;
 
 import com.zwash.auth.exceptions.IncorrectCredentialsException;
 import com.zwash.auth.exceptions.UserAlreadyExistsException;
-import com.zwash.auth.exceptions.UserIsNotFoundException;
+
 import com.zwash.auth.pojos.LoggedUser;
 import com.zwash.auth.pojos.RegistrationEvent;
 import com.zwash.auth.pojos.SignInEvent;
 import com.zwash.auth.security.JwtUtils;
-import com.zwash.auth.service.CarService;
+
 import com.zwash.auth.service.TokenService;
 import com.zwash.auth.service.UserService;
+
+import com.zwash.common.exceptions.UserIsNotFoundException;
 import com.zwash.common.pojos.User;
 import com.zwash.common.repository.UserRepository;
 
@@ -33,8 +35,6 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	TokenService tokenService;
 
-	@Autowired
-	CarService carService;
 
 	@Autowired
 	JwtUtils jwtUtils;
@@ -107,7 +107,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean changePassword(String username, String password) throws Exception {
+	public boolean changePassword(String username, String password) {
 		int resultCount = userRepository.updatePassword(username, password);
 		return resultCount > 0;
 	}
@@ -206,6 +206,12 @@ public class UserServiceImpl implements UserService {
 	            throw new UserIsNotFoundException("User not found for id: " + userId);
 	        }
 	        else return user;
+	}
+
+	@Override
+	public boolean signin(String username, String password) throws Exception {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 
