@@ -71,9 +71,11 @@ public class JwtUtils {
 	public  Claims verifyJWT(String jwt) throws  ExpiredJwtException, UnsupportedJwtException, MalformedJwtException, SignatureException, IllegalArgumentException  {
 
 	    //This line will throw an exception if it is not a signed JWS (as expected)
-	    Claims claims = Jwts.parser()
-	            .setSigningKey("TOKEN")
-	            .parseClaimsJws(jwt).getBody();
+		Claims claims = Jwts.parserBuilder()
+			    .setSigningKey("sdTOKEN") // secret key used to sign the token
+			    .build()
+			    .parseClaimsJws(jwt) // parses the JWT and verifies the signature
+			    .getBody(); // retrieves the Claims (payload)
      logger.debug("creating claims: "+claims);
 
 	    return claims;
