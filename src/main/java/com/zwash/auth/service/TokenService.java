@@ -16,6 +16,4 @@ public interface TokenService {
 
 
 
-	public  Claims verifyJWT(String jwt) throws  ExpiredJwtException, UnsupportedJwtException, MalformedJwtException, SignatureException, IllegalArgumentException;
-
 }

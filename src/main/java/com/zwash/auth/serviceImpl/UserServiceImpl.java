@@ -9,15 +9,10 @@ import org.springframework.stereotype.Service;
 
 import com.zwash.auth.exceptions.IncorrectCredentialsException;
 import com.zwash.auth.exceptions.UserAlreadyExistsException;
-
 import com.zwash.auth.pojos.LoggedUser;
-import com.zwash.auth.pojos.RegistrationEvent;
-import com.zwash.auth.pojos.SignInEvent;
 import com.zwash.auth.security.JwtUtils;
-
 import com.zwash.auth.service.TokenService;
 import com.zwash.auth.service.UserService;
-
 import com.zwash.common.exceptions.UserIsNotFoundException;
 import com.zwash.common.pojos.User;
 import com.zwash.common.repository.UserRepository;
@@ -29,12 +24,12 @@ public class UserServiceImpl implements UserService {
 
 	private static final long serialVersionUID = 1L;
 
-	@Autowired
-	private UserRepository userRepository;
 
 	@Autowired
 	TokenService tokenService;
 
+	@Autowired
+	private UserRepository userRepository;
 
 	@Autowired
 	JwtUtils jwtUtils;
@@ -59,7 +54,15 @@ public class UserServiceImpl implements UserService {
 		loggedUser.setAdmin(user.isAdmin());
 		// Create a JWTToken
 		Long id = loggedUser.getId();
-		String jwt = tokenService.createJWT(id.toString(), "Java", loggedUser.getUsername(), 1232134356);
+		 // Build JWT token (valid for e.g., 1 day)
+	    long nowMillis = System.currentTimeMillis();
+	    long expMillis = nowMillis + 24 * 60 * 60 * 1000; // 24 hours
+	    String jwt = tokenService.createJWT(
+	        user.getId().toString(),
+	        "ZwashAuthService",
+	        user.getUsername(),
+	        expMillis
+	    );
 		loggedUser.setToken(jwt);
 	    
 
@@ -188,11 +191,8 @@ public class UserServiceImpl implements UserService {
 
 	}
 	 private long parseUserIdFromJson(String reqJson) {
-	        // Implement logic to parse userId from reqJson using a JSON parsing library
-	        // For example, using Jackson: objectMapper.readValue(reqJson, UserRequest.class).getUserId();
-	        // Replace UserRequest with your actual request object class
-	        // Return the parsed user ID
-	        return Long.parseLong(reqJson); // Example user ID
+	      
+	        return Long.parseLong(reqJson); 
 	    }
 
 
@@ -210,7 +210,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean signin(String username, String password) throws Exception {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 

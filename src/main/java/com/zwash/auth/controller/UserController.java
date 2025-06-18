@@ -41,6 +41,8 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private JwtUtils jwtUtils;
 
 	Logger logger = LoggerFactory.getLogger(UserController.class);
 
@@ -160,7 +162,6 @@ public class UserController {
 			@ApiResponse(code = 500, message = "Internal server error.") })
 	public ResponseEntity<String> changePassword(@RequestBody User user) throws Exception {
 
-		JwtUtils jwtUtils = new JwtUtils();
 
 		try {
 			Claims cl = jwtUtils.verifyJWT(user.getToken());

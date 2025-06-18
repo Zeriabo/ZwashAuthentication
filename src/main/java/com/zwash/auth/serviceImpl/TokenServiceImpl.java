@@ -2,66 +2,54 @@ package com.zwash.auth.serviceImpl;
 
 import java.security.Key;
 import java.util.Date;
-
-import javax.crypto.spec.SecretKeySpec;
-import javax.xml.bind.DatatypeConverter;
-
 import org.springframework.stereotype.Service;
-
+import com.zwash.auth.security.JwtUtils;
 import com.zwash.auth.service.TokenService;
-
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.SignatureException;
-import io.jsonwebtoken.UnsupportedJwtException;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
+
 
 
 
 @Service
 public class TokenServiceImpl implements TokenService {
+	
+
+	private  String SECRET_KEY=JwtUtils.SECRET_KEY;;
+
+	  private Key getSigningKey() {
+		  
+	        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
+	        return Keys.hmacShaKeyFor(keyBytes);
+	    }
+	  
 	@Override
 	public String createJWT(String id, String issuer, String subject, long ttlMillis) throws Exception {
 
-	    //The JWT signature algorithm we will be using to sign the token
-	    SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
-
-	//    SecretKey secret = CryptoService.generateSecretKey(); secret.getEncoded().toString()
+	 
+	    Key key = getSigningKey();
+	
 
 	    long nowMillis = System.currentTimeMillis();
 	    Date now = new Date(nowMillis);
-
-	    //We will sign our JWT with our ApiKey secret
-	    byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary("TOKEN");
-	    Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
-
-	    //Let's set the JWT Claims
-	    JwtBuilder builder = Jwts.builder().setId(id)
-	                                .setIssuedAt(now)
-	                                .setSubject(subject)
-	                                .setIssuer(issuer)
-	                                .signWith(signatureAlgorithm, signingKey);
-	    //if it has been specified, let's add the expiration
+	   
+	    JwtBuilder builder = Jwts.builder()
+	    							.id(id)
+	                                .issuedAt(now)
+	                                .subject(subject)
+	                                .issuer(issuer)
+	                                .signWith(key);
+	  
 	    if (ttlMillis >= 0) {
 	    long expMillis = nowMillis + ttlMillis;
 	        Date exp = new Date(expMillis);
-	        builder.setExpiration(exp);
+	        builder.expiration(exp);
 	    }
 
-	    //Builds the JWT and serializes it to a compact, URL-safe string
+	   
 	    return builder.compact();
 	}
-	@Override
-	public  Claims verifyJWT(String jwt) throws  ExpiredJwtException, UnsupportedJwtException, MalformedJwtException, SignatureException, IllegalArgumentException  {
-	    //This line will throw an exception if it is not a signed JWS (as expected)
-	    Claims claims = Jwts.parser()
-	            .setSigningKey("TOKEN")
-	            .parseClaimsJws(jwt).getBody();
 
-
-	    return claims;
-	}
 }
