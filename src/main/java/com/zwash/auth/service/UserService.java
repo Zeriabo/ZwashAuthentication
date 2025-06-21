@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 import org.springframework.stereotype.Service;
 
-import com.zwash.common.exceptions.UserIsNotFoundException;
 import com.zwash.auth.pojos.LoggedUser;
+import com.zwash.common.exceptions.UserIsNotFoundException;
 import com.zwash.common.pojos.User;
 
 
@@ -23,15 +23,15 @@ public interface UserService extends Serializable {
 	boolean validateSignIn(String token);
 
 	String getSecretQuestionAnswer(String username);
-	
+
 boolean	changePassword(String username, String password);
-	   
+
 	User getUser(long id) throws UserIsNotFoundException;
-	
-	
+
+
     User getUserKafka(String  reqJson) throws UserIsNotFoundException;
-		
-	   
+
+
 	User getUserFromToken(String token) throws UserIsNotFoundException;
 
 	boolean resetPassword(String username, String secretAnswer, String newPassword) throws Exception;

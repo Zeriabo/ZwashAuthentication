@@ -33,10 +33,10 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	JwtUtils jwtUtils;
-	
 
 
-	
+
+
 	@Override
 	public LoggedUser signIn(String username, String password) throws Exception {
 
@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
 	        expMillis
 	    );
 		loggedUser.setToken(jwt);
-	    
+
 
 		return loggedUser;
 	}
@@ -89,7 +89,7 @@ public class UserServiceImpl implements UserService {
 		catch (Exception e) {
 			throw e;
 		}
-		
+
 
 		return user;
 
@@ -148,8 +148,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 
+	@Override
 	public User getUser(long id) throws UserIsNotFoundException {
-		
+
 		Optional<User> user = userRepository.findById(id);
 		if (user.isPresent()) {
 			return user.get();
@@ -191,26 +192,28 @@ public class UserServiceImpl implements UserService {
 
 	}
 	 private long parseUserIdFromJson(String reqJson) {
-	      
-	        return Long.parseLong(reqJson); 
+
+	        return Long.parseLong(reqJson);
 	    }
 
 
+	@Override
 	public User getUserKafka(String reqJson) throws UserIsNotFoundException {
-		
+
 		 long userId = parseUserIdFromJson(reqJson);
 		 User user = userRepository.findById(userId).orElse(null);
-	        
+
 	        // Handle the case when user is not found
 	        if (user == null) {
 	            throw new UserIsNotFoundException("User not found for id: " + userId);
-	        }
-	        else return user;
+	        } else {
+				return user;
+			}
 	}
 
 	@Override
 	public boolean signin(String username, String password) throws Exception {
-		
+
 		return false;
 	}
 

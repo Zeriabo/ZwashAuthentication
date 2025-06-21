@@ -4,10 +4,10 @@ package com.zwash.auth.pojos;
 
 public class LoginRequest {
 
-	
+
 	private String loginId;
 
-	
+
 	private String password;
 
 	public String getLoginId() {

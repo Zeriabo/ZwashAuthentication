@@ -1,11 +1,21 @@
 package com.zwash.auth.security;
 
 import java.util.Date;
+
 import javax.crypto.SecretKey;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import io.jsonwebtoken.*;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.JwtBuilder;
+import io.jsonwebtoken.JwtParser;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
@@ -16,11 +26,11 @@ public class JwtUtils {
 
     public static final String SECRET_KEY="GZcRgPBNHHtXgcu3f2dJZzMKtJcZKN5V2UhfH1KrfmQ=";
 
-    private SecretKey signingKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(SECRET_KEY));;
+    private SecretKey signingKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(SECRET_KEY));
 //	private  String SECRET_KEY=JwtUtils.SECRET_KEY;;
 //
 //	  private Key getSigningKey() {
-//		  
+//
 //	        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
 //	        return Keys.hmacShaKeyFor(keyBytes);
 //	    }
@@ -41,7 +51,7 @@ public class JwtUtils {
                 .subject(subject)
                 .issuer(issuer)
                 .signWith(signingKey);
-        	
+
         if (ttlMillis >= 0) {
             long expMillis = nowMillis + ttlMillis;
             builder.expiration(new Date(expMillis));

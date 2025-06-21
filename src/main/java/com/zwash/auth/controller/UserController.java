@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.zwash.auth.exceptions.IncorrectTokenException;
 import com.zwash.auth.exceptions.UserIsNotActiveException;
 import com.zwash.auth.pojos.LoggedUser;
@@ -26,6 +27,7 @@ import com.zwash.auth.pojos.SignInfo;
 import com.zwash.auth.security.JwtUtils;
 import com.zwash.auth.service.UserService;
 import com.zwash.common.pojos.User;
+
 import io.jsonwebtoken.Claims;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;

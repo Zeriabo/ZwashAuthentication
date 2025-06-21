@@ -13,7 +13,6 @@ com/zwash/auth/utility/EncryptionUtils.class
 com/zwash/auth/pojos/LoggedUser.class
 com/zwash/auth/service/UserService.class
 com/zwash/auth/security/JwtUtils.class
-com/zwash/auth/gprc/GrpcUserLogic.class
 com/zwash/auth/utility/FirebaseInitializer.class
 com/zwash/auth/ZwashAuthenticationApplication.class
 com/zwash/auth/exceptions/IncorrectTokenException.class

@@ -7,7 +7,6 @@
 /Users/zeriab/git/zwash-k8s/services/ZwashAuthentication/src/main/java/com/zwash/auth/exceptions/UserAlreadyExistsException.java
 /Users/zeriab/git/zwash-k8s/services/ZwashAuthentication/src/main/java/com/zwash/auth/exceptions/UserIsNotActiveException.java
 /Users/zeriab/git/zwash-k8s/services/ZwashAuthentication/src/main/java/com/zwash/auth/exceptions/UserIsNotFoundException.java
-/Users/zeriab/git/zwash-k8s/services/ZwashAuthentication/src/main/java/com/zwash/auth/gprc/GrpcUserLogic.java
 /Users/zeriab/git/zwash-k8s/services/ZwashAuthentication/src/main/java/com/zwash/auth/pojos/LoggedUser.java
 /Users/zeriab/git/zwash-k8s/services/ZwashAuthentication/src/main/java/com/zwash/auth/pojos/LoginRequest.java
 /Users/zeriab/git/zwash-k8s/services/ZwashAuthentication/src/main/java/com/zwash/auth/pojos/LoginResponse.java
