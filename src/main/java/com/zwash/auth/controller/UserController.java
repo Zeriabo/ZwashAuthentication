@@ -2,9 +2,13 @@ package com.zwash.auth.controller;
 
 import java.util.ServiceLoader;
 
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Response;
-
+import jakarta.ws.rs.QueryParam;
+import jakarta.ws.rs.core.Response;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.zwash.auth.exceptions.IncorrectTokenException;
 import com.zwash.auth.exceptions.UserIsNotActiveException;
 import com.zwash.auth.pojos.LoggedUser;
@@ -29,16 +32,10 @@ import com.zwash.auth.service.UserService;
 import com.zwash.common.pojos.User;
 
 import io.jsonwebtoken.Claims;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/")
+@RequestMapping("v1/users")
 public class UserController {
 
 	@Autowired
@@ -58,13 +55,13 @@ public class UserController {
 		return "Hello there i am athentiction service";
 	}
 	@PostMapping(value = "/signin", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ApiOperation(value = "Signs in an existing user.", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "username", value = "The username of the user to sign in.", required = true, dataType = "string", paramType = "body"),
-			@ApiImplicitParam(name = "password", value = "The password of the user to sign in.", required = true, dataType = "string", paramType = "body") })
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "User signed in successfully."),
-			@ApiResponse(code = 401, message = "Invalid username or password."),
-			@ApiResponse(code = 500, message = "Internal server error.") })
+	@Operation(summary = "Signs in an existing user.")
+	@Parameters({
+			@Parameter(name = "username", description = "The username of the user to sign in.", required = true),
+			@Parameter(name = "password", description = "The password of the user to sign in.", required = true) })
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "User signed in successfully."),
+			@ApiResponse(responseCode = "401", description = "Invalid username or password."),
+			@ApiResponse(responseCode = "500", description = "Internal server error.") })
 	public ResponseEntity<LoggedUser> signIn(@RequestBody SignInfo userInfo) throws Exception {
 
 		LoggedUser signedUser;
@@ -103,10 +100,10 @@ public class UserController {
 	 * @throws Exception if there is an error during the registration process
 	 */
 	@PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ApiOperation(value = "Registers a new user.", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "User created successfully."),
-			@ApiResponse(code = 406, message = "User already exists."),
-			@ApiResponse(code = 500, message = "Internal server error.") })
+	@Operation(summary = "Registers a new user.")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "User created successfully."),
+			@ApiResponse(responseCode = "406", description = "User already exists."),
+			@ApiResponse(responseCode = "500", description = "Internal server error.") })
 	public ResponseEntity<String> register(@RequestBody User user) throws Exception {
 		User userCreated;
 		try {
@@ -133,10 +130,10 @@ public class UserController {
 	}
 
 	@PostMapping(value = "/register/admin", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ApiOperation(value = "Registers a new admin.", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Admin created successfully."),
-			@ApiResponse(code = 406, message = "Admin already exists."),
-			@ApiResponse(code = 500, message = "Internal server error.") })
+	@Operation(summary = "Registers a new admin.")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Admin created successfully."),
+			@ApiResponse(responseCode = "406", description = "Admin already exists."),
+			@ApiResponse(responseCode = "500", description = "Internal server error.") })
 	public ResponseEntity<String> registerAdmin(@RequestBody User user) throws Exception {
 		User adminCreated;
 		try {
@@ -158,10 +155,10 @@ public class UserController {
 	}
 
 	@PostMapping(value = "/changepassword", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ApiOperation(value = "Change password for a user.")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Password changed successfully."),
-			@ApiResponse(code = 401, message = "Unauthorized access."),
-			@ApiResponse(code = 500, message = "Internal server error.") })
+	@Operation(summary = "Change password for a user.")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Password changed successfully."),
+			@ApiResponse(responseCode = "401", description = "Unauthorized access."),
+			@ApiResponse(responseCode = "500", description = "Internal server error.") })
 	public ResponseEntity<String> changePassword(@RequestBody User user) throws Exception {
 
 
@@ -200,12 +197,12 @@ public class UserController {
 	 * @throws Exception if there is an error while validating the user
 	 */
 	@GetMapping(value = "/validate", produces = MediaType.APPLICATION_JSON_VALUE)
-	@ApiOperation(value = "Validates if the user is signed in.", produces = MediaType.APPLICATION_JSON_VALUE)
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "User is signed in."),
-			@ApiResponse(code = 200, message = "User is not signed in."),
-			@ApiResponse(code = 500, message = "Internal server error.") })
+	@Operation(summary = "Validates if the user is signed in.")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "User is signed in."),
+			@ApiResponse(responseCode = "200", description = "User is not signed in."),
+			@ApiResponse(responseCode = "500", description = "Internal server error.") })
 	public Response validateIfSigned(
-			@ApiParam(value = "JWT token of the user", required = true) @QueryParam("token") String token)
+			@Parameter(description = "JWT token of the user", required = true) @QueryParam("token") String token)
 			throws Exception {
 
 		boolean valid = false;
@@ -226,9 +223,9 @@ public class UserController {
 	}
 
 	@PostMapping(value = "/getsecrets", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ApiOperation(value = "Get secret question and answer for a user.", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Secret question and answer retrieved successfully."),
-			@ApiResponse(code = 500, message = "Internal server error.") })
+	@Operation(summary = "Get secret question and answer for a user.")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Secret question and answer retrieved successfully."),
+			@ApiResponse(responseCode = "500", description = "Internal server error.") })
 	public Response getSecretQuestionAnswer(@RequestBody User user) throws Exception {
 		try {
 			user.setSecretAnswer(userService.getSecretQuestionAnswer(user.getUsername()));

@@ -1,5 +1,6 @@
 package com.zwash.auth.serviceImpl;
 
+import java.io.Serial;
 import java.util.Optional;
 import java.util.ServiceLoader;
 
@@ -22,7 +23,8 @@ import io.jsonwebtoken.Claims;
 @Service
 public class UserServiceImpl implements UserService {
 
-	private static final long serialVersionUID = 1L;
+    @Serial
+    private static final long serialVersionUID = 1L;
 
 
 	@Autowired
@@ -165,7 +167,7 @@ public class UserServiceImpl implements UserService {
 
 		Optional<User> user = userRepository.findByUsername(username);
 
-		if (!user.isPresent()) {
+		if (user.isEmpty()) {
 			throw new UserIsNotFoundException("User not found");
 		}
 		if (!user.get().getSecretAnswer().equals(secretAnswer)) {

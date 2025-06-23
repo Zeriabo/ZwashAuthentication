@@ -1,8 +1,11 @@
 package com.zwash.auth.exceptions;
 
+import java.io.Serial;
+
 public class UserAlreadyExistsException extends Exception {
 
-	private static final long serialVersionUID = -3267837584889499039L;
+    @Serial
+    private static final long serialVersionUID = -3267837584889499039L;
     public UserAlreadyExistsException()
     {
 

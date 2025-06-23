@@ -17,6 +17,7 @@
 /Users/zeriab/git/zwash-k8s/services/ZwashAuthentication/src/main/java/com/zwash/auth/service/TokenService.java
 /Users/zeriab/git/zwash-k8s/services/ZwashAuthentication/src/main/java/com/zwash/auth/service/UserService.java
 /Users/zeriab/git/zwash-k8s/services/ZwashAuthentication/src/main/java/com/zwash/auth/serviceImpl/TokenServiceImpl.java
+/Users/zeriab/git/zwash-k8s/services/ZwashAuthentication/src/main/java/com/zwash/auth/serviceImpl/UserServiceGrpcImpl.java
 /Users/zeriab/git/zwash-k8s/services/ZwashAuthentication/src/main/java/com/zwash/auth/serviceImpl/UserServiceImpl.java
 /Users/zeriab/git/zwash-k8s/services/ZwashAuthentication/src/main/java/com/zwash/auth/utility/EncryptionUtils.java
 /Users/zeriab/git/zwash-k8s/services/ZwashAuthentication/src/main/java/com/zwash/auth/utility/FileUploadUtil.java
