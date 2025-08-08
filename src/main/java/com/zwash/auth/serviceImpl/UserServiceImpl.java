@@ -54,8 +54,6 @@ public class UserServiceImpl implements UserService {
 		loggedUser.setFirstName(user.getFirstName());
 		loggedUser.setLastName(user.getLastName());
 		loggedUser.setAdmin(user.isAdmin());
-		// Create a JWTToken
-		Long id = loggedUser.getId();
 		 // Build JWT token (valid for e.g., 1 day)
 	    long nowMillis = System.currentTimeMillis();
 	    long expMillis = nowMillis + 24 * 60 * 60 * 1000; // 24 hours
