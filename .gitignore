@@ -43,3 +43,4 @@ out/
 .logs*
 .target
 /target
+.DS_Store
