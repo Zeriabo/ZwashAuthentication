@@ -4,6 +4,7 @@ WORKDIR /app
 
 # Copy both common and authentication code
 COPY ZwashCommon /app/ZwashCommon
+RUN mvn clean package -DskipTests
 COPY ZwashAuthentication /app/ZwashAuthentication
 
 # Install common into local Maven repo
